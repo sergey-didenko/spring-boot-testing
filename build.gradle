@@ -53,6 +53,13 @@ dependencies {
 	//implementation('org.springframework.session:spring-session-core')
 	//implementation('org.springframework.boot:spring-boot-starter-mail')
 	//implementation('org.springframework.boot:spring-boot-starter-quartz')
+
+	//[Spring] tools
+	//compile "org.springframework.boot:spring-boot-devtools"
+	//annotationProcessor ("org.springframework.boot:spring-boot-configuration-processor")
+
+	//[DB] JPA 2 generator
+	annotationProcessor "org.hibernate:hibernate-jpamodelgen"
 	
 	//[DB] migration utils
 	implementation('org.liquibase:liquibase-core')
