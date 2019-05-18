@@ -12,7 +12,8 @@ spring:
     open-in-view: false
     show-sql: true
     hibernate:
-      ddl-auto: update
+#      Auto create tables (update option)
+      ddl-auto: none
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
         implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
