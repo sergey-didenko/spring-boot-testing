@@ -70,10 +70,20 @@ dependencies {
 	//[DB] PostgreSQL
 	//compile('org.postgresql:postgresql')
 
-    //[Test] utils
+	//[DB] for Tests (@DataJpaTest)
+	testRuntime('com.h2database:h2')
+
+	//[Test] utils
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('org.springframework.security:spring-security-test')
+	testImplementation('org.junit.jupiter:junit-jupiter-engine:5.2.0')
+	testImplementation('org.mockito:mockito-junit-jupiter:2.27.0')
 	testCompile "junit:junit"
+}
+
+test {
+	systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
+	useJUnitPlatform()
 }
 
 wrapper {

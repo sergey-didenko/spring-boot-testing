@@ -1,14 +1,16 @@
 logging:
     level:
         ROOT: INFO
-        com.sergey.didenko.spring.testing: INFO
+        com.sergey.didenko.spring.hqljdbc: INFO
 
 spring:
+    liquibase:
+        #run without liquibase
+        enabled: false
     datasource:
-        url: jdbc:mysql://localhost:3306/testing?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&createDatabaseIfNotExist=true
-        username: admin
-        password: admin
+        url: jdbc:h2:mem:hqljdbc;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     jpa:
+        database: H2
         open-in-view: false
         show-sql: true
         hibernate:

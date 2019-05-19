@@ -14,17 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package com.sergey.didenko.spring.testing;
+package com.sergey.didenko.spring.testing.repository;
 
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @ExtendWith(SpringExtension.class)
-public class MainTests {
+//TODO : Enable Transactions, Rollback, Load DataSource, and JPA repositories (if @ContextConfiguration not specify)
+@DataJpaTest
+public class SubjectRepositoryTest {
 
-	@org.junit.jupiter.api.Test
-	public void contextLoads() {
-	}
+    @Autowired
+    private SubjectRepository subjectRepository;
 
+    @org.junit.jupiter.api.Test
+    public void subjectRepository_check01() {
+        assertThat(subjectRepository).isNotNull();
+    }
 }
-
