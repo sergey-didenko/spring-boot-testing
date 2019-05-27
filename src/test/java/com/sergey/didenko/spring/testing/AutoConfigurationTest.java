@@ -33,12 +33,12 @@ import javax.sql.DataSource;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(SpringExtension.class)
 //TODO : Init Context Automatically
 //TODO : Auto configuration is enabled, but only for Entities and Repositories
 @EnableAutoConfiguration
 //TODO : Will import in existing context
 @Import(AutoContextConfig.class)
+@ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = {
         "spring.liquibase.enabled=true"
 })
