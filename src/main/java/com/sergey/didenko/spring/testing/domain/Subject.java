@@ -10,10 +10,12 @@ public class Subject {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @NotNull
     @Size(max = 50)
+    @Column(name = "name")
     private String name;
 
     @JoinColumn(name = "student_id") //by default : {'mappedBy'} + '_id'
