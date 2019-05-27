@@ -7,5 +7,5 @@ CREATE TABLE `subject`  (
   `student_id` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `s_si` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = MyISAM AUTO_INCREMENT = 1;
+) ENGINE = InnoDB AUTO_INCREMENT = 1;
 --rollback drop table subject;
