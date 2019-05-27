@@ -14,9 +14,11 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package com.sergey.didenko.spring.testing.repository;
+package com.sergey.didenko.spring.testing.datajpa;
 
 import com.sergey.didenko.spring.testing.config.LiquibaseConfiguration;
+import com.sergey.didenko.spring.testing.repository.StudentRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -26,21 +28,23 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@ExtendWith(SpringExtension.class)
 //TODO : Init Context Automatically
 //TODO : Auto configuration is enabled, but only for Entities and Repositories
 @DataJpaTest
+//TODO : Will import in existing context
 @Import(LiquibaseConfiguration.class)
+@ExtendWith(SpringExtension.class)
 @TestPropertySource(properties = {
-        "spring.liquibase.enabled=false"
+        "spring.liquibase.enabled=true"
 })
-public class SubjectRepositoryTest {
+public class DataJpaConfigurationTest {
 
     @Autowired
-    private SubjectRepository subjectRepository;
+    private StudentRepository studentRepository;
 
-    @org.junit.jupiter.api.Test
-    public void subjectRepository_check01() {
-        assertThat(subjectRepository).isNotNull();
+    @Test
+    public void dataJpaConfigurationTest_check01() {
+        assertThat(studentRepository).isNotNull();
     }
+
 }

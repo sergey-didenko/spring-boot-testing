@@ -14,59 +14,50 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-package com.sergey.didenko.spring.testing.repository;
+package com.sergey.didenko.spring.testing;
 
-import com.sergey.didenko.spring.testing.config.LiquibaseConfiguration;
-import com.sergey.didenko.spring.testing.domain.Student;
-import org.junit.Assert;
+import com.sergey.didenko.spring.testing.config.AutoContextConfig;
+import com.sergey.didenko.spring.testing.repository.StudentRepository;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.ArrayList;
-import java.util.Optional;
+import javax.sql.DataSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 //TODO : Init Context Automatically
 //TODO : Auto configuration is enabled, but only for Entities and Repositories
-@DataJpaTest
-@Import(LiquibaseConfiguration.class)
+@EnableAutoConfiguration
+//TODO : Will import in existing context
+@Import(AutoContextConfig.class)
 @TestPropertySource(properties = {
-        "spring.liquibase.enabled=false"
+        "spring.liquibase.enabled=true"
 })
-public class StudentRepositoryTest {
+public class AutoConfigurationTest {
 
     @Autowired
     private StudentRepository studentRepository;
 
-    @org.junit.jupiter.api.Test
-    @Sql("classpath:sql/check01.sql")
-    public void studentRepository_check01() {
+    @Autowired
+    private ApplicationContext appContext;
 
+    @Test
+    public void autoConfigurationTest_check01() {
         assertThat(studentRepository).isNotNull();
 
-        Student expected = new Student();
-        expected.setFirstName("one");
-        expected.setLastName("one");
-        expected.setSubjectList(new ArrayList<>());
+        DriverManagerDataSource dataSource = (DriverManagerDataSource) appContext.getBean(DataSource.class);
+        assertThat(dataSource).isNotNull();
 
-        expected = studentRepository.save(expected);
-
-        Optional<Student> studentOprional = studentRepository.findById(expected.getId());
-        Student actual = studentOprional.orElse(null);
-
-        assertThat(expected).isNotNull();
-        assertThat(actual).isNotNull();
-
-        System.out.println(expected.toString());
-        System.out.println(actual.toString());
-
-        Assert.assertEquals(expected, actual);
+        String actual = "jdbc:mariadb://localhost:3306/testing?useUnicode=true&characterEncoding=UTF-8&serverTimezone=UTC&createDatabaseIfNotExist=true";
+        assertEquals(actual, dataSource.getUrl());
     }
 }
